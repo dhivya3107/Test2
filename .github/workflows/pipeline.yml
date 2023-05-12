@@ -7,26 +7,35 @@ on:
   # Triggers the workflow on push or pull request events but only for the main branch 
   push:
     branches: 
-      - main
+      - three
 
 jobs:
-  # This workflow contains a single job called "build"
-  CI:
-    # The type of runner that the job will run on
+  check-changes:
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+    - name: Checkout other repository
+      uses: actions/checkout@v2
+      with:
+        repository: dhivya3107/repo1
+        ref: main
+        path: 'dhivya3107/repo1'
 
-      - name: Run scanner for the repository
-        continue-on-error: true
-        run: |
-          whispers ${{ github.workspace }} > whispers.txt
-          .github/workflows/scripts/whispers.sh  
-          
-      - name: Setup Tag for image and branch
-        run: |
-          echo "IMAGE_TAG=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
-          echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
+    - name: Check for changes
+      id: check-changes
+      run: |
+        cd dhivya3107/repo1
+        git fetch origin
+        if [ "$(git rev-parse HEAD)" != "$(git rev-parse @{u})" ]; then
+          echo "Changes detected!"
+          echo "::set-output name=changes::true"
+        else
+          echo "No changes."
+          echo "::set-output name=changes::false"
+        fi
+
+    - name: Notify changes
+      if: steps.check-changes.outputs.changes == 'true'
+      run: |
+        echo "Changes detected, notifying..."
+        # Add your notification steps here
