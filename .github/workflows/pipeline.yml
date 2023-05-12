@@ -17,14 +17,14 @@ jobs:
     - name: Checkout other repository
       uses: actions/checkout@v2
       with:
-        repository: dhivya3107/repo1
+        repository: dhivya3107/repo2
         ref: main
-        path: 'dhivya3107/repo1'
+        path: 'dhivya3107/repo2'
 
     - name: Check for changes
       id: check-changes
       run: |
-        cd dhivya3107/repo1
+        cd dhivya3107/repo2
         git fetch origin
         if [ "$(git rev-parse HEAD)" != "$(git rev-parse @{u})" ]; then
           echo "Changes detected!"
