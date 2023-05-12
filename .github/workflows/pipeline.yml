@@ -15,13 +15,4 @@ jobs:
   # This workflow contains a single job called "build"
   Build:
     uses: dhivya3107/dhivyapipeline/.github/workflows/pipeline.yml@pipe
-    secrets: inherit
-    with: 
-      REGION: "ap-southeast-1"
-      ASSUME_ROLE: "arn:aws:iam::325910447219:role/cross-account-role-iexceed"
-      ASSUME_ROLE_PROD: "arn:aws:iam::009373914419:role/cross-account-iexceed-prod"
-      PLATFORM_REPO: "unobank-app-platform"
-      MAVEN_HOME: "/opt/apache-maven-3.8.4"
-      JAVA_HOME: "/usr/lib/jvm/java-11-openjdk-amd64/"
-      MICROSERVICES: ${{ github.event.repository.name }}
-      EXCLUDED_CLASS: "src/test/**"
+
