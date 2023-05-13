@@ -22,9 +22,9 @@ jobs:
     - name: Check for changes
       id: check-changes
       run: |
-        cd dhivya3107/repo2
+        cd other-repo
         git fetch origin
-        if [ "$(git rev-parse HEAD)" != "$(git rev-parse @{u})" ]; then
+        if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
           echo "Changes detected!"
           echo "::set-output name=changes::true"
         else
