@@ -30,6 +30,7 @@ jobs:
         else
           echo "No changes."
           echo "::set-output name=changes::false"
+        fi
       
     - name: Build if changes detected
       if: steps.check-changes.outputs.changes == 'true'
