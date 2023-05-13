@@ -16,7 +16,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: dhivya3107/repo2
-        ref: test1
+        ref: main
         path: 'dhivya3107/repo2'
 
     - name: Check for changes
@@ -24,19 +24,16 @@ jobs:
       run: |
         cd dhivya3107/repo2
         git fetch origin
-        for branch in $(git branch -r | grep -v HEAD); do
-        if git diff --quiet $(git rev-parse HEAD) $(git rev-parse ${branch#origin/}); then
+        if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
           echo "Changes detected!"
           echo "::set-output name=changes::true"
         else
           echo "No changes."
           echo "::set-output name=changes::false"
         fi
-        done
       
     - name: Build if changes detected
       if: steps.check-changes.outputs.changes == 'true'
       run: |
         echo "Building..."
         # Add your build steps here
-        
