@@ -25,13 +25,14 @@ jobs:
         cd dhivya3107/repo2
         git fetch origin
         for branch in $(git branch -r | grep -v HEAD); do
-        if [ "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" ]; then
+        if git diff --quiet $(git rev-parse HEAD) $(git rev-parse ${branch#origin/}); then
           echo "Changes detected!"
           echo "::set-output name=changes::true"
         else
           echo "No changes."
           echo "::set-output name=changes::false"
         fi
+        done
       
     - name: Build if changes detected
       if: steps.check-changes.outputs.changes == 'true'
