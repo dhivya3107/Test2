@@ -8,11 +8,11 @@ on:
     branches: 
       - three
 jobs:
-  check-changes:
+  check-for-changes:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout other repository
+    - name: Checkout dependent repo
       uses: actions/checkout@v2
       with:
         repository: dhivya3107/repo2
@@ -30,10 +30,10 @@ jobs:
         else
           echo "No changes."
           echo "::set-output name=changes::false"
-        fi
-
-    - name: Notify changes
+      
+    - name: Build if changes detected
       if: steps.check-changes.outputs.changes == 'true'
       run: |
-        echo "Changes detected, notifying..."
-        # Add your notification steps here
+        echo "Building..."
+        # Add your build steps here
+        
