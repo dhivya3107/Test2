@@ -24,7 +24,7 @@ jobs:
       run: |
         cd dhivya3107/repo2
         git fetch origin
-        if git diff --quiet $(git rev-parse HEAD) $(git rev-parse origin/HEAD); then
+        if [[ $(git status -uno | grep -c "Your branch is behind") -eq 1 ]]; then
           echo "Changes detected!"
           echo "::set-output name=changes::true"
         else
