@@ -24,7 +24,7 @@ jobs:
       run: |
         cd dhivya3107/repo2
         git fetch origin
-        if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+        if [ "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" ]; then
           echo "Changes detected!"
           echo "::set-output name=changes::true"
         else
