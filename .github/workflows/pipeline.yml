@@ -21,7 +21,7 @@ jobs:
       
       - name: Setup Tag for image and branch
         run: |
-          echo "$(echo $GITHUB_SHA | cut -c 1-6)" >> IMAGE_TAG
+          echo "$(echo $GITHUB_SHA | cut -c 1-6)" 
           echo "$IMAGE_TAG"
 
 
