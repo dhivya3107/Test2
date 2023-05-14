@@ -26,8 +26,8 @@ jobs:
           
       - name: Update Image tag
         run: |          
-          git clone https://github.com/dhivya3107/dhivyapipeline.git
-          cd dhivyapipeline
+          git clone https://github.com/dhivya3107/repo1.git
+          cd repo1
           git checkout three
           sed -i 's/tag.*/tag: "${{env.IMAGE_TAG}}"/' values.yaml
           git add values.yaml
