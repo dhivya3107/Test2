@@ -23,13 +23,12 @@ jobs:
         run: |
           echo "IMAGE_TAG=$(echo $GITHUB_SHA | cut -c 1-6)"
 
-      - name: Run scanner for the repository
-        continue-on-error: true
+      - name: Update Image tag
         run: |
-          whispers ${{ github.workspace }} > whispers.txt
-          .github/workflows/scripts/whispers.sh  
+          https://github.com/dhivya3107/dhivyapipeline.git
           
-      - name: Setup Tag for image and branch
-        run: |
-          echo "IMAGE_TAG=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
-          echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
+          git checkout -b three
+          sed -i 's/tag.*/tag: "${{IMAGE_TAG}}"/' values.yaml
+          git add values.yaml
+          git commit -m "updated"
+          git push -u origin three
